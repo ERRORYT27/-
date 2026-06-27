@@ -1,0 +1,571 @@
+body{
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    text-align: left;
+    background: #1a1a2e url("pictures/风景2.png") center/cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 0;
+    box-sizing: border-box;
+}
+
+/* 主内容容器：半透明灰白毛玻璃效果 */
+.main-container {
+    width: 1000px;
+    background: rgba(245, 245, 245, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 24px 40px 40px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    box-sizing: border-box;
+}
+
+/* 标题行：情景介绍靠左，音乐控件靠右 */
+.heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 音乐控件 */
+.music-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: fit-content;
+}
+#musicPlayBtn {
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #4a90d9;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+#musicPlayBtn:hover {
+    background: #357abd;
+}
+.volume-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+#volumeIcon {
+    font-size: 20px;
+    width: 28px;
+    text-align: center;
+}
+#volumeSlider {
+    width: 100px;
+    height: 6px;
+    cursor: pointer;
+    accent-color: #4a90d9;
+}
+
+#circle{
+    position:relative;
+
+    width:500px;
+    height:500px;
+
+    margin:auto;
+}
+
+.person{
+    position:absolute;
+    font-size:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:36px;
+    height:36px;
+    background:rgba(255,255,255,0.25);
+    border:2px solid rgba(255,255,255,0.5);
+    border-radius:50%;
+    box-shadow:0 2px 8px rgba(0,0,0,0.15),inset 0 0 8px rgba(255,255,255,0.1);
+    text-shadow:0 1px 3px rgba(0,0,0,0.2);
+    transform:translate(-50%,-50%);
+    transition:transform 0.3s ease,font-size 0.3s ease,background 0.3s ease,border-color 0.3s ease;
+    z-index:1;
+}
+
+#popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    padding:28px 36px 32px;
+    border:1px solid rgba(255,255,255,0.4);
+    border-radius:20px;
+    box-shadow:0 16px 48px rgba(0,0,0,0.2),0 0 0 1px rgba(255,255,255,0.1);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:16px;
+    max-width:90vw;
+    max-height:90vh;
+}
+#popup.hidden{display:none!important}
+
+/* 确保胜利/失败弹窗位于普通模式模态之上 */
+#popup{z-index:2002}
+
+#popupText {
+    font-size:18px;
+    font-weight:500;
+    color:#2c2c2c;
+    text-align:center;
+    line-height:1.6;
+    max-width:600px;
+}
+
+#popup button {
+    margin-top:4px;
+}
+
+#popupImg, #popupVideo {
+    max-width: 600px;
+    max-height: 55vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.1);
+}
+
+.hidden{
+    display:none;
+}
+
+
+/* 全局输入框美化 */
+input[type="number"],
+input[type="text"]:not(.afterword-quiz-input):not(.challenge-bullets-input),
+input:not([type]) {
+    width: 50px;
+    margin-right: 10px;
+    padding: 6px 10px;
+    border: 2px solid #d0d5e0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: #2c3e50;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+input[type="number"]:focus,
+input[type="text"]:not(.afterword-quiz-input):not(.challenge-bullets-input):focus,
+input:not([type]):focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+input[type="number"]:disabled {
+    background: rgba(220, 220, 230, 0.5);
+    color: #888;
+    cursor: not-allowed;
+    border-color: #d0d5e0;
+}
+
+/* 全局下拉框美化 */
+select {
+    padding: 6px 10px;
+    border: 2px solid #d0d5e0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: #2c3e50;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    margin-right: 10px;
+}
+select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* 挑战模式子弹剩余输入框 */
+.challenge-bullets-input {
+    width: 60px;
+    text-align: center;
+    padding: 6px 10px;
+    border: 2px solid #d0d5e0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: bold;
+    outline: none;
+}
+
+/* 后记问答输入框 */
+.afterword-quiz-input {
+    width: 200px;
+    margin-right: 0;
+    padding: 6px 12px;
+    border: 2px solid #d0d5e0;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    color: #2c3e50;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.afterword-quiz-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* 全局按钮美化 */
+button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    letter-spacing: 0.5px;
+}
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.45);
+    filter: brightness(1.1);
+}
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(102, 126, 234, 0.3);
+}
+button:disabled {
+    background: linear-gradient(135deg, #b0b0b0 0%, #909090 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    filter: none;
+}
+/* 特殊按钮覆盖 */
+#musicPlayBtn {
+    background: #4a90d9;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(74, 144, 217, 0.3);
+}
+#musicPlayBtn:hover {
+    background: #357abd;
+    transform: translateY(-1px);
+}
+#toggleHitboxBtn {
+    background: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    box-shadow: none;
+}
+#toggleHitboxBtn:hover {
+    background: #e0e0e0;
+    border-color: #999;
+    filter: none;
+}
+#challengeCloseBtn, #modalCloseBtn {
+    background: rgba(236, 116, 230, 0.726);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+#challengeCloseBtn:hover, #modalCloseBtn:hover {
+    background: rgba(255,255,255,0.35);
+    filter: none;
+}
+
+/* Modal 普通模式 样式 */
+.modal.hidden{display:none}
+.modal{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1000;display:flex;align-items:center;justify-content:center}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.4)}
+.modal-content{position:relative;background:rgba(245,245,245,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:20px;border-radius:20px;z-index:1001;width:90%;max-width:1100px;height:90vh;display:flex;flex-direction:column;align-items:center;overflow:auto;box-shadow:0 8px 32px rgba(0,0,0,0.15)}
+.modal-content #modalInner{width:100%;flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(rgba(255,255,255,0.3),rgba(255,255,255,0.3)),url("pictures/蚂蚁.jpeg") center/contain no-repeat;border-radius:12px}
+.modal-content #modalInner #circle{width:800px;height:800px}
+
+/* 更大的圆圈在宽屏下自动收缩 */
+@media(max-width:1200px){
+    .modal-content #modalInner #circle{width:70vw;height:70vw}
+}
+
+/* 初始仅显示介绍和普通模式按钮，隐藏游戏占位 */
+#gamePlaceholder { display: none; }
+
+.challenge-play-area,
+.challenge-play-area * {
+    user-select: none;           /* 标准 */
+    -webkit-user-select: none;   /* Safari/Chrome */
+    -moz-user-select: none;      /* Firefox */
+    -ms-user-select: none;       /* IE/Edge */
+    -webkit-user-drag: none;     /* 禁止拖拽（可选） */
+}
+
+.challenge-play-area {
+    width: 1000px;
+    height: 600px;
+    border: 2px solid #666;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    cursor: crosshair;
+    background: linear-gradient(rgba(250,250,250,0.6), rgba(250,250,250,0.6)),
+                url("pictures/吃背景.jpg") top/cover no-repeat;
+    transform-origin: top left;
+    /* 不再设置 max-width，由 JS 控制缩放 */
+}
+
+/* 缩放容器：铺满可用空间但保持比例 */
+.challenge-play-area-wrapper {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.challenge-person {
+    position: absolute;
+    width: 30px;              /* 判定区宽度 */
+    height: 30px;             /* 判定区高度 */
+    border-radius: 50%;       /* 圆形判定区标记（保留） */
+    background: transparent;  /* 完全透明，不显示任何背景 */
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;     /* 点击穿透，由父容器统一处理 */
+}
+
+.challenge-person.guessed-survivor {
+    box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.8), 0 0 10px rgba(255, 215, 0, 0.35);
+    border: 1px solid rgba(255, 215, 0, 0.9);
+}
+
+/* 大图标：居中显示，占满判定区中心 */
+.challenge-icon {
+    font-size: 32px;          /* 大一点的小人 */
+    line-height: 1;
+    transform: translateY(2px); /* 微调垂直居中（可选） */
+}
+
+/* 小编号：缩小放在右下角，不干扰中心判定 */
+.challenge-number {
+    font-size: 10px;          /* 很小，只作为辅助标记 */
+    font-weight: bold;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.4); /* 半透明黑底，保证在任何背景下都看得清 */
+    padding: 0 4px;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    line-height: 1.4;
+    pointer-events: none;     /* 同样穿透点击 */
+}
+
+.challenge-person.show-hitbox {
+    outline: 2px dashed #a9e0ee;        /* 红色虚线圆（因为 border-radius:50%，outline也会跟着变圆） */
+    outline-offset: -1px;               /* 向内偏移1px，紧贴边缘 */
+    background: rgba(132, 243, 245, 0.151);  /* 极淡的红色填充，方便观察重叠区域 */
+    transition: outline 0.1s ease;      /* 切换时稍微平滑一些 */
+}
+
+.challenge-obstacle {
+    position: absolute;
+    height: 4px;
+    background: #000;
+    pointer-events: none;
+    transform-origin: center;
+    z-index: 3;
+}
+
+/* ---- 弹痕 ---- */
+.bullet-hole {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #000;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 5;
+    transform: translate(-50%, -50%); /* 使中心对准点击点 */
+}
+
+/* ---- 死亡淡出 ---- */
+.challenge-person.dead {
+    transition: opacity 0.8s ease;
+    opacity: 0;
+}
+
+.challenge-person.panic .challenge-icon {
+    filter: saturate(1.4) brightness(1.1) hue-rotate(180deg);
+    color: #ff3b30;
+}
+
+.challenge-bullet {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 20%, #ff3b30 80%);
+    box-shadow: 0 0 12px 3px rgba(255, 59, 48, 0.9), 0 0 24px 6px rgba(255, 200, 50, 0.3);
+    pointer-events: none;
+    z-index: 6;
+    transform: translate(-50%, -50%);
+}
+
+/* ---- 后记图片集锦 ---- */
+.afterword-img-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.afterword-img {
+    width: 800px;
+    height: auto;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.afterword-caption {
+    margin-top: 8px;
+    font-size: 18px;
+    color: #666;
+}
+
+/* ---- 通用文本工具类 ---- */
+.modal-body-text {
+    font-size: 16px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    margin-bottom: 16px;
+    text-align: left;
+}
+.text-center { text-align: center; }
+
+/* ---- 挑战模式布局 ---- */
+.challenge-section { margin-top: 12px; text-align: center; }
+.challenge-section-sm { margin-top: 8px; text-align: center; }
+.challenge-label-offset { margin-left: 16px; }
+.afterword-quiz-row { text-align: left; margin-bottom: 12px; }
+.afterword-quiz-row-last { text-align: left; margin-bottom: 16px; }
+.afterword-hint-btn {
+    margin-left: 8px;
+    background: linear-gradient(135deg, #88a0e0 0%, #5a7bc0 100%);
+}
+.afterword-hints-box {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255,255,255,0.5);
+    border-radius: 8px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 2;
+}
+.afterword-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 8px;
+    display: none;
+}
+.afterword-title {
+    margin-bottom: 16px;
+}
+
+/* ---- 弹窗尺寸变体 ---- */
+.modal-content-sm {
+    width: auto;
+    max-width: 500px;
+    height: auto;
+    padding: 30px 40px;
+}
+.modal-content-md {
+    width: auto;
+    max-width: 600px;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px 40px;
+}
+
+/* 致谢弹窗超链接样式 */
+#thanksText a {
+    color: #4a90d9;
+    text-decoration: underline;
+    word-break: break-all;
+}
+#thanksText a:hover {
+    color: #357abd;
+}
+.modal-content-lg {
+    width: auto;
+    max-width: 1000px;
+    max-height: 90vh;
+    height: auto;
+    padding: 30px 40px;
+    overflow-y: auto;
+}
+
+/* ---- 分隔线 ---- */
+.dashed-divider {
+    margin: 30px 0;
+    border: none;
+    border-top: 2px dashed #ccc;
+}
+
+/* ---- 图片集锦容器 ---- */
+.gallery-container { margin-bottom: 40px; }
+
+/* ---- 数学弹窗 ---- */
+.modal-content-math {
+    width: 90%;
+    max-width: 900px;
+    height: 90vh;
+    padding: 16px;
+}
+/* ---- 数学弹窗内部 ---- */
+.math-modal-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.math-modal-header { text-align: right; margin-bottom: 8px; }
+.math-iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* ---- popup 媒体 ---- */
+.popup-img { max-width: 100%; max-height: 70vh; object-fit: contain; }
+.popup-video { max-width: 100%; max-height: 300px; }
